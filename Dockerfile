@@ -9,9 +9,9 @@ ENV DEBIAN_FRONTEND noninteractive
 ENV RTORRENT_DEFAULT /opt/rtorrent
 
 ENV RTORRENT_VERSION 0.9.2-1
-ENV RUTORRENT_VERSION 3.6
-ENV H5AI_VERSION 0.27.0
-ENV CAKEBOX_VERSION v1.8.3
+ENV RUTORRENT_VERSION 3.7
+ENV H5AI_VERSION 0.29.0
+ENV CAKEBOX_VERSION v1.8.6
 
 # install tools ===============================================================
 
@@ -27,7 +27,7 @@ RUN apt-get install -y vim curl \
 
 # install rtorrent ============================================================
 
-RUN apt-get install -y rtorrent=${RTORRENT_VERSION}
+RUN apt-get install -y rtorrent
 
 # install rutorrent ===========================================================
 
@@ -43,9 +43,12 @@ RUN curl -sSL http://getcomposer.org/installer | php \
         && chmod +x /usr/bin/composer
 
 # then either install nodejs+npm from package manager (old nodejs version that doesn't include npm)
-RUN apt-get install -y nodejs npm \
-        && ln -s $(which nodejs) /usr/bin/node \
-        && npm install -g bower
+#RUN apt-get install -y nodejs npm \
+#        && ln -s $(which nodejs) /usr/bin/node \
+#        && npm install -g bower
+
+RUN curl -sL https://deb.nodesource.com/setup_6.x | bash \
+        && apt-get install -y nodejs
 # or compile nodejs only (auto include npm)
 #RUN mkdir -p /opt/nodejs && curl -sSL http://nodejs.org/dist/node-latest.tar.gz | tar xzv --strip 1 -C /opt/nodejs && cd /opt/nodejs && ./configure && make && make install
 
